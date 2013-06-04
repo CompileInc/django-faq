@@ -9,4 +9,8 @@
     <li><a href="{{ topic.get_absolute_url }}">{{ topic }}</a></li>
   {% endfor %}
 </ul>
+
+{% with topicless_questions as questions %}
+    {% include "faq/questions_listing.html" %}
+{% endwith %}
 {% endblock %}

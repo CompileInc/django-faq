@@ -4,11 +4,6 @@
 
 {% block body %}
 <h3>{{ topic }}</h3>
-<dl>
-{% for question in questions %}
-  <dt>{{ question.text }}</dt>
-  <dd class="answer">{{ question.answer }}</dd>
-{% endfor %}
-</dl>
+{% include "faq/questions_listing.html" %}
 
 {% endblock %}

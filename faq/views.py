@@ -36,8 +36,10 @@ class TopicList(ListView):
         last_updated = (data['object_list']
                             .annotate(updated=Max('questions__updated_on'))
                             .aggregate(Max('updated')))
-        
-        data.update({'last_updated': last_updated['updated__max']})
+        topicless_questions = Question.objects.active().filter(topic__isnull=True)
+        if self.request.user.is_anonymous():
+            topicless_questions = topicless_questions.exclude(protected=True)
+        data.update({'last_updated': last_updated['updated__max'],'topicless_questions':topicless_questions})
         return data
 
 class TopicDetail(DetailView):
