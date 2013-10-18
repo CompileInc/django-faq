@@ -1,9 +1,9 @@
 import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from managers import QuestionManager
+from django.conf import settings
 
 class Topic(models.Model):
     """
@@ -53,9 +53,9 @@ class Question(models.Model):
 
     created_on = models.DateTimeField(_('created on'), auto_now_add=True)
     updated_on = models.DateTimeField(_('updated on'), auto_now=True)
-    created_by = models.ForeignKey(User, verbose_name=_('created by'),
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('created by'),
         null=True, related_name="+")
-    updated_by = models.ForeignKey(User, verbose_name=_('updated by'),
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('updated by'),
         null=True, related_name="+")  
     
     objects = QuestionManager()
